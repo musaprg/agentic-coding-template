@@ -76,7 +76,6 @@ Agent → Feature Branch → CI Tests → Human Review → Merge
 │       └── ci.yml            # Security scanning + testing
 ├── .agent/                   # Agent workspace (gitignored)
 ├── .tmp/                     # Design documents (gitignored)
-├── examples/                 # Language-specific examples
 ├── AGENT_GUIDELINES.md       # Universal agent safety rules
 ├── CLAUDE.md                # Claude Code instructions
 ├── GEMINI.md                # Gemini CLI instructions
