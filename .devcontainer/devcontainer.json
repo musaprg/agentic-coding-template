@@ -1,0 +1,91 @@
+{
+  "name": "Agentic Coding Sandbox",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-24.04",
+  
+  // Security: Run as non-root user
+  "remoteUser": "vscode",
+  
+  // Language features - uncomment as needed for your project
+  "features": {
+    // Claude Code installed by default for agentic coding
+    "ghcr.io/anthropics/devcontainer-features/claude-code:1.0": {},
+    
+    // Node.js installed by default (commonly needed)
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18",
+      "nodeGypDependencies": true
+    },
+    
+    // Popular language runtimes (uncomment as needed)
+    // "ghcr.io/devcontainers/features/python:1": {
+    //   "version": "3.11",
+    //   "installTools": true
+    // },
+    // "ghcr.io/devcontainers/features/go:1": {
+    //   "version": "1.21"
+    // },
+    // "ghcr.io/devcontainers/features/rust:1": {
+    //   "version": "1.70"
+    // },
+    // "ghcr.io/devcontainers/features/java:1": {
+    //   "version": "17"
+    // },
+    // "ghcr.io/devcontainers/features/dotnet:2": {
+    //   "version": "7.0"
+    // },
+    // "ghcr.io/devcontainers/features/ruby:1": {
+    //   "version": "3.2"
+    // },
+    // "ghcr.io/devcontainers/features/php:1": {
+    //   "version": "8.2"
+    // },
+    
+    // Universal development tools
+    "ghcr.io/devcontainers/features/git:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-outside-of-docker:1": {}
+  },
+  
+  // Security: Mount only the workspace directory
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  
+  // Post-creation setup
+  "postCreateCommand": "bash .devcontainer/on-create.sh",
+  
+  // Security: Disable privileged mode
+  "privileged": false,
+  
+  // Container settings for stability
+  "shutdownAction": "stopContainer",
+  
+  // VS Code extensions for universal development
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-vscode.vscode-json",
+        "ms-vscode.makefile-tools",
+        "editorconfig.editorconfig",
+        "ms-vscode.vscode-yaml"
+      ],
+      "settings": {
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": true
+        }
+      }
+    }
+  },
+  
+  // Security: Network restrictions (agents should not access arbitrary internal networks)
+  // Note: This still allows internet access for package installation
+  "runArgs": [
+    "--network=bridge"
+  ],
+  
+  // Environment variables
+  "containerEnv": {
+    "AGENT_WORKSPACE": "/workspaces/${localWorkspaceFolderBasename}/.agent",
+    "TMP_WORKSPACE": "/workspaces/${localWorkspaceFolderBasename}/.tmp"
+  }
+}

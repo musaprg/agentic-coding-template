@@ -1,0 +1,45 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Renovate configuration for agentic coding template - patch updates only for security and stability",
+  "extends": [
+    "config:recommended"
+  ],
+  "labels": ["dependencies"],
+  "assigneesFromCodeOwners": true,
+  "reviewersFromCodeOwners": true,
+  "dependencyDashboardTitle": "Dependency Dashboard (Patch Updates Only)",
+  "dependencyDashboardHeader": "This repository only accepts patch-level dependency updates for security and stability. Major and minor updates are disabled to prevent breaking changes in the agentic coding environment.",
+  "packageRules": [
+    {
+      "description": "Only allow patch updates - disable major and minor updates",
+      "matchUpdateTypes": ["major", "minor"],
+      "enabled": false
+    },
+    {
+      "description": "Enable patch updates with security label",
+      "matchUpdateTypes": ["patch"],
+      "labels": ["security-patch"]
+    },
+    {
+      "description": "Auto-merge security vulnerability patches after CI passes",
+      "vulnerabilityAlerts": {"enabled": true},
+      "matchUpdateTypes": ["patch"],
+      "automerge": true,
+      "labels": ["security-vulnerability", "auto-merge"]
+    },
+    {
+      "description": "Disable Docker image updates to keep container stable",
+      "matchDatasources": ["docker"],
+      "enabled": false
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["security-vulnerability"],
+    "prCreation": "immediate"
+  },
+  "ignorePaths": [
+    "**/.tmp/**",
+    "**/.agent/**"
+  ]
+}
